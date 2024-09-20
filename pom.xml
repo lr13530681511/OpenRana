@@ -9,7 +9,7 @@
         <version>1.2.0</version>
     </parent>
 
-    <artifactId>open-rana</artifactId>
+    <artifactId>account</artifactId>
     <packaging>jar</packaging>
     <version>1.5.2</version>
 

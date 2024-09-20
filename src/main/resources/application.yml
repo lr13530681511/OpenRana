@@ -24,8 +24,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://127.0.0.1:3306/open_rana?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-    username:
-    password:
+    username: root
+    password: LR251000@
   jpa:
     generate-ddl: true
     hibernate:
