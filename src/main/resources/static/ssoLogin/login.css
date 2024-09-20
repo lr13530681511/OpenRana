@@ -1,0 +1,133 @@
+/* 通用样式 */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 400px; /* 保证整个表单区域的最大宽度 */
+    width: 100%;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px; /* 设置与登录按钮一致的最大宽度 */
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box; /* 确保内边距不会影响宽度 */
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 400px; /* 设置与输入框一致的最大宽度 */
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.toggle-login-type {
+    text-align: center;
+    margin-top: 15px;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+.toggle-login-type:hover {
+    text-decoration: underline;
+}
+
+#code-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px; /* 设置与其他输入框一致的最大宽度 */
+}
+
+#code-group input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.code-btn {
+    padding: 10px 15px;
+    background-color: #FF6A6A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0; /* 防止按钮收缩 */
+}
+
+.code-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* login.css */
+.login-tip-down {
+    font-size: 15px; /* 设置字体大小 */
+    color: #999;     /* 设置灰色 */
+    /*bottom: 20px;*/
+    margin-top: 20px; /* 设置上边距 */
+    text-align: left; /* 靠左对齐 */
+}
+
+/* login.css */
+.login-tip {
+    font-size: 12px; /* 设置字体大小 */
+    color: #999;     /* 设置灰色 */
+    /*bottom: 20px;*/
+    margin-top: 2px; /* 设置上边距 */
+    text-align: left; /* 靠左对齐 */
+}
+
+#provider-info {
+    margin-top: 10px; /* 增加顶部边距 */
+    text-align: center; /* 居中对齐 */
+}

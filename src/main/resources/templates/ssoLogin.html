@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRana SSO登录</title>
+    <link href="../ssoLogin/login.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="login-container">
+    <h2 id="appName">OpenRana 登录</h2>
+    <div id="login-form">
+        <div class="input-group">
+            <label for="loginKey" id="loginKeyLabel">用户名</label>
+            <input type="text" id="loginKey" placeholder="请输入用户名"/>
+        </div>
+        <p class="login-tip" id="phone-login-tip" style="display: none;">注：如果手机号未注册过，则直接注册</p>
+
+
+        <div class="input-group" id="password-group">
+            <label for="loginValue">密码</label>
+            <input type="password" id="loginValue" placeholder="请输入密码"/>
+        </div>
+
+        <div class="input-group" id="code-group" style="display: none;">
+            <label for="loginValueCode">验证码</label>
+            <div style="display: flex;">
+                <input type="text" id="loginValueCode" placeholder="请输入验证码" style="flex: 1;"/>
+                <button class="code-btn" id="sendCodeBtn" onclick="sendCode()">发送验证码</button>
+            </div>
+        </div>
+        <button class="btn" onclick="submitSSOLogin()">登录</button>
+        <div class="toggle-login-type" onclick="toggleLoginType()">使用手机号登录/注册</div>
+    </div>
+    <p class="login-tip-down" id="provider-info">本登录功能由 OpenRana SSO 提供</p>
+</div>
+<script>    // 在页面加载时读取URL参数
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const appName = urlParams.get('appName');
+    const redirectUrl = urlParams.get('redirectUrl');
+    // 设置全局变量
+    window.appName = appName || 'OpenRana';
+    window.redirectUrl = redirectUrl || '';
+    // 更新HTML元素
+    document.getElementById('appName').innerText = appName || 'OpenRana';
+});
+</script>
+<script src="../ssoLogin/login.js"></script>
+</body>
+</html>
