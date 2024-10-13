@@ -3,6 +3,7 @@ package com.LR.openRana.utils.bean;
 import com.LR.openRana.common.LLException;
 import com.LR.openRana.common.SpringContextUtils;
 import com.LR.openRana.module.account.Account;
+import com.LR.openRana.module.account.AccountPermission;
 import com.LR.openRana.module.account.RoleType;
 import com.LR.openRana.module.account.repository.AccountTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,44 +11,32 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-/**
- * 用于获取当前线程中的用户信息和角色类型的工具类
- */
 @Component
 public class CurrentThreadUtils {
 
-    /**
-     * 从请求中获取当前的Token
-     *
-     * @param request HTTP请求对象，用于获取Token信息
-     * @return 当前请求的Token字符串
-     */
+    // 取当前访问用户的token
     public String getCurrentToken(HttpServletRequest request) {
         return request.getHeader("Token");
     }
 
-    /**
-     * 通过Token字符串获取当前的用户账户信息
-     *
-     * @param tokenString Token字符串，用于识别用户
-     * @return 当前用户的Account对象
-     * @throws LLException 如果Token无效，则抛出异常
-     */
-    public Account getCurrentAccount(String tokenString) {
-        AccountTokenRepository repository = getRepository();
-        if (!repository.existsByToken(tokenString)) {
-            throw new LLException("当前访问角色为访客");
-        }
-        return repository.findByToken(tokenString).get().getAccount();
+
+    // 获取用户权限路径
+    public Set<String> getCurrentUserPermissionPaths(String token) {
+        com.LR.openRana.module.account.Account account = getCurrentAccount(token);
+        return account.getRoles().stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .map(AccountPermission::getPath)
+                .collect(Collectors.toSet());
     }
 
-    /**
-     * 通过Token字符串获取当前用户的角色类型集合
-     *
-     * @param tokenString Token字符串，用于识别用户
-     * @return 当前用户的角色类型集合
-     */
+    // 获取当前用户权限等级及以下等级列表
+    public Set<RoleType> getCurrentUserRoles(String token) {
+        return RoleType.getRolesBelowOrEqual(getCurrentMaxRoleType(token));
+    }
+
+    // 取当前访问用户的角色
     public Set<RoleType> getCurrentRoleType(String tokenString) {
         AccountTokenRepository repository = getRepository();
         if (!repository.existsByToken(tokenString)) {
@@ -56,12 +45,7 @@ public class CurrentThreadUtils {
         return repository.findByToken(tokenString).get().getAccount().getRoleTypes();
     }
 
-    /**
-     * 通过Token字符串获取当前用户的最高角色类型
-     *
-     * @param tokenString Token字符串，用于识别用户
-     * @return 当前用户的最高RoleType
-     */
+    // 取当前访问用户的最大角色
     public RoleType getCurrentMaxRoleType(String tokenString) {
         AccountTokenRepository repository = getRepository();
         if (!repository.existsByToken(tokenString)) {
@@ -70,12 +54,7 @@ public class CurrentThreadUtils {
         return repository.findByToken(tokenString).get().getAccount().getMaxRole();
     }
 
-    /**
-     * 从请求中获取当前用户的角色类型集合
-     *
-     * @param request HTTP请求对象，用于获取Token信息
-     * @return 当前用户的角色类型集合
-     */
+    // 通过request取当前访问用户的角色
     public Set<RoleType> getCurrentRoleType(HttpServletRequest request) {
         if (request.getHeader("Token") == null) {
             return Collections.singleton(RoleType.GUEST);
@@ -83,21 +62,21 @@ public class CurrentThreadUtils {
         return getCurrentAccount(request).getRoleTypes();
     }
 
-    /**
-     * 从请求中获取当前的用户账户信息
-     *
-     * @param request HTTP请求对象，用于获取Token信息
-     * @return 当前用户的Account对象
-     */
+    // 通过request取当前访问用户
     public Account getCurrentAccount(HttpServletRequest request) {
         return getCurrentAccount(request.getHeader("Token"));
     }
 
-    /**
-     * 获取AccountTokenRepository的实例
-     *
-     * @return AccountTokenRepository的实例
-     */
+    // 通过token取当前访问用户
+    public Account getCurrentAccount(String tokenString) {
+        AccountTokenRepository repository = getRepository();
+        if (!repository.existsByToken(tokenString)) {
+            throw new LLException("当前访问角色为访客");
+        }
+        return repository.findByToken(tokenString).get().getAccount();
+    }
+
+    // 取AccountRepository
     private AccountTokenRepository getRepository() {
         return SpringContextUtils.getBean(AccountTokenRepository.class);
     }

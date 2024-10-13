@@ -2,20 +2,13 @@ package com.LR.openRana.utils;
 
 import java.security.SecureRandom;
 
-/**
- * 提供安全随机数生成的工具类。
- */
 public class RandomUtils {
 
-    // 定义可用于生成随机十六进制字符串的字符集
     private static final String HEX_CHARS = "0123456789ABCDEF";
 
-    // 定义可用于生成随机数字字符串的字符集
     private static final String NUMBER_CHARS = "0123456789";
 
-    // 定义可用于生成随机 alphanumeric 字符串的字符集
     private static final String ALL_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    // 使用 SecureRandom 生成安全随机数
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
@@ -36,12 +29,6 @@ public class RandomUtils {
         return tokenBuilder.toString();
     }
 
-    /**
-     * 生成指定长度的随机 alphanumeric 字符串。
-     *
-     * @param length 需要生成的字符串的长度。
-     * @return 生成的随机字符串。
-     */
     public static String generateAllCharsRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -50,12 +37,6 @@ public class RandomUtils {
         return sb.toString();
     }
 
-    /**
-     * 生成指定长度的随机数字字符串。
-     *
-     * @param length 需要生成的字符串的长度。
-     * @return 生成的随机数字字符串。
-     */
     public static String generateNumberRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {

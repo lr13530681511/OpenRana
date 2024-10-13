@@ -4,6 +4,7 @@
  */
 package com.LR.openRana.module.account;
 
+
 import com.LR.openRana.common.LLException;
 
 public enum LoginType {

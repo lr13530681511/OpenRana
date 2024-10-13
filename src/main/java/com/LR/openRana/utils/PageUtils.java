@@ -10,9 +10,10 @@ import java.util.List;
 /**
  * 分页工具类
  *
- * @author adam
+ * @author adam agtech-team
+ * @email info@ag-tech.cn
+ * @date 2020年11月4日 下午12:59:00
  */
-@Deprecated
 public class PageUtils implements Serializable {
 
     private static final long serialVersionUID = 8010353298853698945L;

@@ -1,14 +1,14 @@
 server:
   port: 8001
   servlet:
-    context-path: /account
+    context-path: /open-rana
     encoding:
       force: true
       charset: UTF-8
 
 spring:
   application:
-    name: account-server
+    name: open-rana
   profiles:
     active: prod
 
@@ -30,9 +30,9 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-      show_sql: true
-      format_sql: true
-      use_sql_comments: true
+#      show_sql: true
+#      format_sql: true
+#      use_sql_comments: true
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -50,8 +50,8 @@ spring:
 
 
 aliyun:
-  accessKeyId:
-  accessKeySecret:
+  accessKeyId: #自行填写短信服务key
+  accessKeySecret: #自行填写短信服务key
 
 eureka:
   client:

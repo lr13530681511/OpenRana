@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * 分页用，如果用Java，List来表示结果
  */
-@Deprecated
 public final class ListPageUtils {
 
     private static List<?> split(final List<?> list, final int currentPage,

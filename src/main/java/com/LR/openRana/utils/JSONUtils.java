@@ -90,4 +90,19 @@ public final class JSONUtils {
             throw new LLException("toJSONFailed");
         }
     }
+
+    /**
+     * only support POJO
+     */
+//    public static <T> T toJavaObject(Map<String, ?> map, Class<T> clazz) {
+//        try {
+//            T instance = clazz.getDeclaredConstructor().newInstance();
+//            BeanUtils.populate(instance, map);
+//            return instance;
+//        } catch (Exception e) {
+//            //just swallow
+//            log.error("", e);
+//            return null;
+//        }
+//    }
 }

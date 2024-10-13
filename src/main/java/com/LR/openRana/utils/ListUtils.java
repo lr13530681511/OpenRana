@@ -6,7 +6,6 @@ import com.LR.openRana.common.LLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Deprecated
 public class ListUtils {
 
     /**

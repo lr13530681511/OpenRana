@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Deprecated
 public class ThreadPoolUtils {
 
     private static ConcurrentHashMap<String, ExecutorService> threadPools = new ConcurrentHashMap<>();

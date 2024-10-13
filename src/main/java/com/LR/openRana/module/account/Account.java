@@ -1,5 +1,6 @@
 package com.LR.openRana.module.account;
 
+import com.LR.openRana.module.account.repository.AccountRepository;
 import com.LR.openRana.utils.DataFactoryUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -38,6 +39,8 @@ public class Account {
     @JsonIgnore
     private String salt;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String accountToken; // 账户令牌
 
     @JsonIgnore
@@ -50,7 +53,7 @@ public class Account {
     private Boolean isActive; // 账户是否激活
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
     private Set<AccountRole> roles; // 账户的角色列表
 
     private Boolean isNoExpired; // 账户令牌是否未过期
@@ -107,6 +110,32 @@ public class Account {
         return this.getPassWord().equals(DataFactoryUtils.addSalt(plainPassword, salt));
     }
 
+    public AccountToken loginBySMSCode(AccountRepository repository, String uuid, String captcha,
+                                       long expiredTime, String accessIp, String source) {
+        // TODO 短信登录
+////        if (LoginCounter.overErrorTime(getUserId())) {
+////            throw new RRException("尝试登录次数失败过多，请稍后重试");
+////        }
+//        if (isNeedImageCheck()) {
+//            var sysCaptchaService = SpringContextUtils.getBean(SysCaptchaService.class);
+//            if (!sysCaptchaService.validate(uuid, captcha)) {
+//                LoginCounter.whenError(userId, accessIp);
+//                throw new RRException("验证码校验失败");
+//            }
+//        }
+//        AccessToken accessToken = new AccessToken();
+//        accessToken.setAccountUid(this.userId);
+//        accessToken.setSource(source);
+//        accessToken.setExpiredTime(Objects.nonNull(expiredTime) ? expiredTime
+//                : LocalDateTime.now().plus(defaultExpiredTimeMs, MILLIS)
+//                .toEpochSecond(ZoneOffset.ofHours(8)) * 1000);
+//        accessToken = repository.save(accessToken);
+//        LoginCounter.whenSuccessfulLogin(this.userId, accessIp);
+//        return accessToken;
+//    }
+        return null;
+    }
+
     // 私有构造器，防止直接实例化
     private Account(AccountBuilder builder) {
         this.uid = builder.uid;
@@ -117,7 +146,6 @@ public class Account {
         this.passWord = builder.passWord;
         this.salt = builder.salt;
     }
-
 
     public boolean isActive() {
         return isActive;

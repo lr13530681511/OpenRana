@@ -17,7 +17,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -48,9 +47,6 @@ public class BuildAuthSQLTask extends InitialTask {
         log.info("BuildAuthSQLTask end");
     }
 
-    /**
-     * 初始化admin账号，包括账号的详细信息，并将其与admin角色绑定。
-     */
     private void initAdminAccount() {
         AccountRepository accountRepository = applicationContext.getBean(AccountRepository.class);
         if (!accountRepository.existsByUserName("admin")) {
@@ -87,9 +83,6 @@ public class BuildAuthSQLTask extends InitialTask {
         }
     }
 
-    /**
-     * 初始化系统中的所有角色，根据RoleType枚举创建角色。
-     */
     private void initAccountRole() {
         PlatformTransactionManager platformTransactionManager = applicationContext
                 .getBean(PlatformTransactionManager.class);
@@ -102,16 +95,13 @@ public class BuildAuthSQLTask extends InitialTask {
                 AccountRole role = new AccountRole();
                 role.setRoleType(roleType);
                 role.setRoleName(roleType.getName());
-                role.setPermissions(new ArrayList<>());
+                role.setPermissions(new HashSet<>());
                 roleRepository.save(role);
             }
         }
         platformTransactionManager.commit(status);
     }
 
-    /**
-     * 初始化admin用户，确保系统中存在名为"admin"的用户。
-     */
     private void initAccountUser() {
         AccountUserRepository userRepository = applicationContext.getBean(AccountUserRepository.class);
         if (!userRepository.existsByName("admin")) {

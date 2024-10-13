@@ -35,7 +35,8 @@ public class SSOLoginRequests {
 
     private Boolean isSuccess;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String token;
 
     private String msg;

@@ -19,7 +19,7 @@ public class RedisConfig {
     private int port;
 
     @Value("${spring.data.redis.DB}")
-    private int db;
+    private int aiDB;
 
 
     /**
@@ -31,7 +31,7 @@ public class RedisConfig {
     @Bean
     public StringRedisTemplate connectAccountCache() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(this.host, this.port);
-        config.setDatabase(db);
+        config.setDatabase(aiDB);
         StringRedisTemplate template = new StringRedisTemplate();
         LettuceConnectionFactory factory = new LettuceConnectionFactory(config);
         factory.afterPropertiesSet();

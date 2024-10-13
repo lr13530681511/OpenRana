@@ -3,7 +3,7 @@ package com.LR.openRana.module.account;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,15 +17,23 @@ public class AccountRole {
     private String roleName;
 
     @ManyToMany(cascade = CascadeType.DETACH)
-    private List<AccountPermission> permissions;
+    private Set<AccountPermission> permissions;
 
     private RoleType roleType;
 
-    public void authorize(List<AccountPermission> accountPermissions) {
+    public void authorize(Set<AccountPermission> accountPermissions) {
         this.permissions = accountPermissions;
+    }
+
+    public void unAuthorize(Set<AccountPermission> accountPermissions) {
+        this.permissions.removeAll(accountPermissions);
     }
 
     public void authorize(AccountPermission accountPermission) {
         this.permissions.add(accountPermission);
+    }
+
+    public void unAuthorize(AccountPermission accountPermission) {
+        this.permissions.remove(accountPermission);
     }
 }

@@ -22,9 +22,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 
-/**
- * 单点登录服务类，处理登录相关逻辑
- */
 @Service
 public class SSOService {
 
@@ -35,15 +32,6 @@ public class SSOService {
     private final CaptchaCacheService captchaCacheService;
     private final AccountUserRepository accountUserRepository;
 
-    /**
-     * 构造方法，初始化登录请求仓库和账户相关的仓库
-     *
-     * @param repository            登录请求仓库
-     * @param accountRepository     账户仓库
-     * @param tokenRepository       账户令牌仓库
-     * @param captchaCacheService   验证码缓存服务
-     * @param accountUserRepository 账户用户仓库
-     */
     @Autowired
     public SSOService(SSOLoginRequestsRepository repository, AccountRepository accountRepository, AccountTokenRepository tokenRepository, CaptchaCacheService captchaCacheService, AccountUserRepository accountUserRepository) {
         this.repository = repository;
@@ -53,11 +41,6 @@ public class SSOService {
         this.accountUserRepository = accountUserRepository;
     }
 
-    /**
-     * 处理登录请求，根据登录类型（手机号或用户名）进行不同的登录验证
-     *
-     * @param requests 登录请求对象
-     */
     public void login(SSOLoginRequests requests) {
         switch (requests.getLoginType()) {
             case PHONE -> {
@@ -74,12 +57,6 @@ public class SSOService {
         }
     }
 
-    /**
-     * 验证密码并登录
-     *
-     * @param accountO 账户可选对象
-     * @param requests 登录请求对象
-     */
     private void checkPasswdAndLogin(Optional<Account> accountO, SSOLoginRequests requests) {
         if (accountO.isEmpty()) {
             loginFail(requests, "用户不存在");
@@ -93,12 +70,6 @@ public class SSOService {
         }
     }
 
-    /**
-     * 验证验证码并登录
-     *
-     * @param accountO 账户可选对象
-     * @param requests 登录请求对象
-     */
     private void checkCaptchaAndLogin(Optional<Account> accountO, SSOLoginRequests requests) {
         if (captchaCacheService.validateCaptcha(requests.getLoginK(), requests.getLoginV())) {
             if (accountO.isEmpty()) {
@@ -114,12 +85,6 @@ public class SSOService {
         }
     }
 
-    /**
-     * 注册新用户
-     *
-     * @param requests 登录请求对象
-     * @return 新注册的账户对象
-     */
     private Account signUp(SSOLoginRequests requests) {
         String salt = RandomUtils.generateAllCharsRandomString(8);
         Account account = new Account.AccountBuilder()
@@ -144,12 +109,6 @@ public class SSOService {
         return account;
     }
 
-    /**
-     * 登录成功处理
-     *
-     * @param requests 登录请求对象
-     * @param account  登录账户对象
-     */
     private void loginSuccess(SSOLoginRequests requests, Account account) {
         AccountToken accountToken = new AccountToken.AccountTokenBuilder()
                 .accountUid(account.getUid())
@@ -165,16 +124,12 @@ public class SSOService {
         repository.save(requests);
     }
 
-    /**
-     * 登录失败处理
-     *
-     * @param requests 登录请求对象
-     * @param msg      失败原因消息
-     */
     private void loginFail(SSOLoginRequests requests, String msg) {
         requests.setIsSuccess(false);
         requests.setToken(null);
         requests.setMsg(msg);
         repository.save(requests);
     }
+
+
 }

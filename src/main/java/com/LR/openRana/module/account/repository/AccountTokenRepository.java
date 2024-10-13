@@ -1,5 +1,4 @@
 package com.LR.openRana.module.account.repository;
-
 import com.LR.openRana.module.account.AccountToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

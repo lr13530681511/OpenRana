@@ -4,7 +4,9 @@ package com.LR.openRana.utils;
 import java.util.HashMap;
 
 /**
- * @author Adam
+ * @author Adam agtech-team
+ * @email info@ag-tech.cn
+ * @date 2020年06月30日 上午10:00:00
  */
 public class MapUtils<T, S> extends HashMap<String, Object> {
 

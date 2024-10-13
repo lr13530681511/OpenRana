@@ -1,5 +1,6 @@
 package com.LR.openRana.module.sso;
 
+import com.LR.openRana.config.AuthenticationMethod;
 import com.LR.openRana.module.account.RoleType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class CheckRoleResult {
 
     private String userName;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String token;
 
     private String appName;
@@ -33,7 +36,9 @@ public class CheckRoleResult {
 
     private LocalDateTime time;
 
-    // 默认构造器，通常用于框架内部使用，如JPA
+    private AuthenticationMethod method;
+
+    // 默认构造器，通常用于框架内部使用
     public CheckRoleResult() {
     }
 
@@ -49,6 +54,7 @@ public class CheckRoleResult {
         private String message;
         private String path;
         private LocalDateTime time;
+        private AuthenticationMethod method;
 
         // 构造函数可以公开或私有，这里选择公开
         public Builder() {
@@ -105,6 +111,11 @@ public class CheckRoleResult {
             return this;
         }
 
+        public Builder withMethod(AuthenticationMethod method) {
+            this.method = method;
+            return this;
+        }
+
         // 构建并返回CheckRoleResult对象
         public CheckRoleResult build() {
             CheckRoleResult checkRoleResult = new CheckRoleResult();
@@ -118,6 +129,7 @@ public class CheckRoleResult {
             checkRoleResult.message = this.message;
             checkRoleResult.path = this.path;
             checkRoleResult.time = this.time;
+            checkRoleResult.method = this.method;
             return checkRoleResult;
         }
     }

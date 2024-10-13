@@ -1,5 +1,6 @@
 package com.LR.openRana.module.account.service;
 
+
 import com.LR.openRana.common.LLException;
 import com.LR.openRana.constants.RedisPrefixConstants;
 import com.LR.openRana.module.account.Captcha;
@@ -67,34 +68,16 @@ public class CaptchaCacheService {
         utils.delete(RedisPrefixConstants.PHONE_CAPTCHA_PREFIX + phone); // 从Redis删除验证码
     }
 
-    /**
-     * 验证验证码是否正确
-     *
-     * @param phone 手机号码
-     * @param code  用户输入的验证码
-     * @return 验证码正确返回true，否则返回false
-     */
     public boolean validateCaptcha(String phone, String code) {
-        // 从缓存中获取指定手机号对应的验证码
         String cacheCode = this.getCaptchaForPhone(phone);
-        // 验证码使用后，从缓存中删除
         delete(phone);
-        // 检查缓存中是否存有该手机号的验证码
         if (cacheCode == null) {
             return false;
         }
-        // 比较用户输入的验证码和缓存中的验证码是否一致
         return cacheCode.equals(code);
     }
 
-    /**
-     * 检查指定手机号的验证码是否已存在
-     *
-     * @param phone 手机号码
-     * @return 验证码已存在返回true，否则返回false
-     */
     public boolean isExist(String phone) {
-        // 利用utils工具类检查Redis中是否存在指定手机号的验证码
         return utils.hasKey(RedisPrefixConstants.PHONE_CAPTCHA_PREFIX + phone);
     }
 }

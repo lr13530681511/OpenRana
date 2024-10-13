@@ -4,17 +4,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * 全局CORS配置类，用于配置所有请求的跨域规则
- */
 @Configuration
 public class GlobalCorsConfig implements WebMvcConfigurer {
 
-    /**
-     * 添加CORS映射，配置请求的跨域规则
-     *
-     * @param registry CORS注册对象，用于添加CORS规则
-     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 配置跨域规则

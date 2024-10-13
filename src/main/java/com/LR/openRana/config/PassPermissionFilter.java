@@ -2,7 +2,6 @@ package com.LR.openRana.config;
 
 import java.util.List;
 
-@Deprecated
 public class PassPermissionFilter {
 
     // 使用 final 关键字确保列表不可更改

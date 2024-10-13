@@ -16,6 +16,8 @@ public class AccountToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String token;
 
     @JsonIgnore

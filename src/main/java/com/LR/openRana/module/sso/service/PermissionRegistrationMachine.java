@@ -13,35 +13,21 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * 权限注册服务类
- */
 @Slf4j
 @Service
+@Transactional
 public class PermissionRegistrationMachine {
 
     private AccountPermissionRepository repository;
 
     private PermissionRegistrationResultRepository resultRepository;
 
-    /**
-     * 构造函数，用于注入权限仓库和注册结果仓库
-     *
-     * @param repository    权限仓库
-     * @param resultRepository 注册结果仓库
-     */
     @Autowired
     public PermissionRegistrationMachine(AccountPermissionRepository repository, PermissionRegistrationResultRepository resultRepository) {
         this.repository = repository;
         this.resultRepository = resultRepository;
     }
 
-    /**
-     * 注册权限，并记录结果
-     *
-     * @param requests 权限注册请求对象
-     * @return 返回权限注册结果对象
-     */
     public PermissionRegistrationResult register(PermissionRegistrationResult requests) {
         requests.setResult(savePermission(requests.getAccountPermissions()));
         if (!requests.getResult()) {
@@ -53,14 +39,8 @@ public class PermissionRegistrationMachine {
         return resultRepository.save(requests);
     }
 
-    /**
-     * 保存或更新权限信息
-     *
-     * @param accountPermissions 权限集合
-     * @return 返回操作是否成功
-     */
-    @Transactional
-    protected Boolean savePermission(Set<AccountPermission> accountPermissions) {
+
+    private Boolean savePermission(Set<AccountPermission> accountPermissions) {
         try {
             for (AccountPermission accountPermission : accountPermissions) {
                 Optional<AccountPermission> dbPermission = repository.findByPath(accountPermission.getPath());
@@ -73,11 +53,6 @@ public class PermissionRegistrationMachine {
         }
     }
 
-    /**
-     * 打印权限注册日志
-     *
-     * @param result 权限注册结果对象
-     */
     private void printLog(PermissionRegistrationResult result) {
         log.info(
                 "应用信息:\n" +
@@ -89,4 +64,5 @@ public class PermissionRegistrationMachine {
                 result.getAppName(), result.getRegistrationTime(), result.getMsg()
         );
     }
+
 }
