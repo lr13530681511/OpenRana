@@ -7,10 +7,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class AccountServerApplication {
+public class OpenRanaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AccountServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OpenRanaApplication.class, args);
+    }
 
 }
