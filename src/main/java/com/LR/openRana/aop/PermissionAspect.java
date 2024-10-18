@@ -52,7 +52,6 @@ public class PermissionAspect {
             if ("token失效/未传入Token".equals(requests.getMessage())){
                 redirectToSSOLogin(request, response);
             }
-//             这行让本地鉴权不起效了
             throw new LLException(requests.getMessage());
         }
     }
