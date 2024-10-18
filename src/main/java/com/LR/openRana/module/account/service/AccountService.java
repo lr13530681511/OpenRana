@@ -159,7 +159,7 @@ public class AccountService {
             AccountToken accountToken = new AccountToken.AccountTokenBuilder()
                     .accountUid(account.getUid())
                     .token(RandomUtils.generateToken())
-                    .expiredTime(DateInitUtils.cacheDayToMillis(7))
+                    .expiredTime(System.currentTimeMillis() + DateInitUtils.cacheDayToMillis(7))
                     .build();
             accountToken = tokenRepository.saveAndFlush(accountToken);
             account.setAccountToken(accountToken.getToken());
@@ -178,7 +178,7 @@ public class AccountService {
             AccountToken accountToken = new AccountToken.AccountTokenBuilder()
                     .accountUid(account.getUid())
                     .token(RandomUtils.generateToken())
-                    .expiredTime(DateInitUtils.cacheDayToMillis(7))
+                    .expiredTime(System.currentTimeMillis() + DateInitUtils.cacheDayToMillis(7))
                     .build();
             accountToken = tokenRepository.saveAndFlush(accountToken);
             account.setAccountToken(accountToken.getToken());

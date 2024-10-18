@@ -7,6 +7,7 @@ import com.LR.openRana.module.account.RoleType;
 import com.LR.openRana.module.account.repository.AccountRepository;
 import com.LR.openRana.module.account.repository.AccountRoleRepository;
 import com.LR.openRana.module.account.repository.AccountUserRepository;
+import com.LR.openRana.utils.DataFactoryUtils;
 import com.LR.openRana.utils.RandomUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -63,13 +64,13 @@ public class BuildAuthSQLTask extends InitialTask {
             Account account = new Account.AccountBuilder()
                     .phoneNumber("17620321511")
                     .email("593174604@qq.com")
-                    .userName("admin")
-                    .passWord(RandomUtils.generateToken()).build();
+                    .userName("admin").build();
             account.setCreateTime(LocalDateTime.now());
             account.setIsActive(true);
             account.setIsNoExpired(true);
             account.setRefreshToken("");
             account.setSalt("000");
+            account.setPassWord(DataFactoryUtils.addSalt("admin", account.getSalt()));
             account.setWechatAccessToken("");
             account.setAccountToken(RandomUtils.generateToken());
             account.setWechatOpenId("");

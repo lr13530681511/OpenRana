@@ -113,7 +113,7 @@ public class SSOService {
         AccountToken accountToken = new AccountToken.AccountTokenBuilder()
                 .accountUid(account.getUid())
                 .token(RandomUtils.generateToken())
-                .expiredTime(DateInitUtils.cacheDayToMillis(7))
+                .expiredTime(System.currentTimeMillis() + DateInitUtils.cacheDayToMillis(7))
                 .build();
         tokenRepository.save(accountToken);
         requests.setIsSuccess(true);
