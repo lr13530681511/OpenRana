@@ -20,7 +20,9 @@ public class RoleFilter {
 
     // 本地調用权限验证
     public CheckRoleResult checkPermissions(CheckRoleResult r) {
-        checkTokenAndIgnore(r);
+        if (r.getRoleType() != RoleType.GUEST){
+            checkTokenAndIgnore(r);
+        }
         if (r.getResult() == null ) {
             switch (r.getMethod()) {
                 case ROLE_TYPE_CHECK:
